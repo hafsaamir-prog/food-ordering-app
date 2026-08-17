@@ -44,7 +44,8 @@ export default function Cart() {
 
         ))}
       </ul>
-      <p className="cart-total">{currencyFormatter.format(cartTotal)}</p>
+      <p className="cart-total">
+        Total : <strong>{currencyFormatter.format(cartTotal)}</strong></p>
       <p className="modal-actions">
         <Button textOnly onClick={handleCloseCart}>
           Close
