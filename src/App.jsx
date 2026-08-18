@@ -7,11 +7,13 @@ import Meals from './components/Meals.jsx';
 import About from './components/About.jsx';
 import Products from './components/Products.jsx';
 import MealDetail from './components/MealDetail.jsx';
+import FlyToCartProvider from './components/FlyToCartProvider.jsx';
 
 function RootLayout() {
   return (
     <>
       <Header />
+      <FlyToCartProvider />
       <main>
         <Outlet />
       </main>

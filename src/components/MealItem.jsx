@@ -12,9 +12,20 @@ export default function MealItem({ meal }) {
   const navigate = useNavigate();
 
   function handleAddMealToCart(e) {
-    // prevent the parent click (which navigates to details)
     if (e && e.stopPropagation) e.stopPropagation();
-    dispatch(addItem({ ...meal, quantity: 1 }));
+
+    const id = String(Date.now()) + Math.floor(Math.random() * 1000);
+    const imgEl = e.currentTarget.closest('.meal-item')?.querySelector('img');
+    const rect = imgEl ? imgEl.getBoundingClientRect() : e.currentTarget.getBoundingClientRect();
+    // listen for completion once
+    function onComplete(ev) {
+      if (ev.detail && ev.detail.id === id) {
+        window.removeEventListener('fly-complete', onComplete);
+        dispatch(addItem({ ...meal, quantity: 1 }));
+      }
+    }
+    window.addEventListener('fly-complete', onComplete);
+    window.dispatchEvent(new CustomEvent('fly-to-cart', { detail: { id, src: `/${meal.image}`, startRect: rect } }));
   }
 
   const isAdded = cartItems.some((it) => it.id === meal.id && it.quantity > 0);

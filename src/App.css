@@ -191,6 +191,9 @@ h1 {
 .cart-bump {
   animation: cart-bump 0.5s ease;
 }
+img[flying] {
+  will-change: transform, opacity;
+}
 
 @keyframes cart-bump {
   0% {
