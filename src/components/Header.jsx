@@ -1,23 +1,20 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectCartItems } from '../store/redux/selectors';
 import Button from './UI/Button.jsx';
 import logoImg from '../assets/logo.jpg';
-import CartContext from '../store/CartContext.jsx';
-import UserProgressContext from '../store/UserProgressContext.jsx';
+
 
 export default function Header() {
-  const cartCtx = useContext(CartContext);
-  const userProgressCtx = useContext(UserProgressContext);
+  const cartItems = useSelector(selectCartItems);
 
   const [cartBump, setCartBump] = useState(false);
 
   const previousCartItems = useRef(0);
+  const navigate = useNavigate();
 
-  const totalCartItems = cartCtx.items.reduce(
-    (totalNumberOfItems, item) => {
-      return totalNumberOfItems + item.quantity;
-    },
-    0
-  );
+  const totalCartItems = cartItems.reduce((total, item) => total + (item.quantity || 0), 0);
 
   useEffect(() => {
     if (totalCartItems > previousCartItems.current) {
@@ -36,7 +33,7 @@ export default function Header() {
   }, [totalCartItems]);
 
   function handleShowCart() {
-    userProgressCtx.showCart();
+    navigate('/cart');
   }
 
   return (

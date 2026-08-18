@@ -1,38 +1,31 @@
-import { useContext, useState, useEffect } from 'react';
-import Modal from './UI/Modal.jsx';
-import CartContext from '../store/CartContext.jsx';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { currencyFormatter } from '../util/currencyFormatter.js';
 import Button from './UI/Button.jsx';
-import UserProgressContext from '../store/UserProgressContext.jsx';
 import Input from './UI/Input.jsx';
+import { selectCartItems, selectCartTotal } from '../store/redux/selectors';
+import { clearCart } from '../store/redux/cartSlice';
 
 export default function Checkout() {
-  const cartCtx = useContext(CartContext);
-  const userProgressCtx = useContext(UserProgressContext);
+  const dispatch = useDispatch();
+  const cartItems = useSelector(selectCartItems);
+  const cartTotal = useSelector(selectCartTotal);
   const [formError, setFormError] = useState('');
+  const navigate = useNavigate();
 
-  const cartTotal = cartCtx.items.reduce(
-    (totalPrice, item) => totalPrice + item.quantity * item.price,
-    0
-  );
-
-  const isCartEmpty = !cartCtx.items || cartCtx.items.length === 0;
-
+  const isCartEmpty = !cartItems || cartItems.length === 0;
   useEffect(() => {
-    if (userProgressCtx.progress === 'checkout') {
-      if (isCartEmpty) {
-        setFormError('Your cart is empty. Add items before checking out.');
-      } else {
-        setFormError('');
-      }
+    if (isCartEmpty) {
+      setFormError('Your cart is empty. Add items before checking out.');
     } else {
       setFormError('');
     }
-  }, [userProgressCtx.progress, isCartEmpty]);
+  }, [isCartEmpty]);
 
   function handleClose() {
     setFormError('');
-    userProgressCtx.hideCheckout();
+    navigate(-1);
   }
 
   function checkoutAction(event) {
@@ -90,25 +83,25 @@ export default function Checkout() {
 
     const order = {
       customer: customerData,
-      items: cartCtx.items,
+      items: cartItems,
       total: cartTotal,
     };
 
     localStorage.setItem('order', JSON.stringify(order));
 
-    cartCtx.clearCart();
-    userProgressCtx.hideCheckout();
+    dispatch(clearCart());
+    navigate('/');
   }
 
   return (
-    <Modal open={userProgressCtx.progress === 'checkout'} onClose={handleClose}>
+    <section style={{ padding: '1rem' }}>
       {isCartEmpty ? (
         <div>
           <h2>Checkout</h2>
           <p>Your cart is empty. Add something first before filling out the checkout form.</p>
           <div className="modal-actions">
             <Button type="button" onClick={handleClose}>
-              Close
+              Back
             </Button>
           </div>
         </div>
@@ -170,7 +163,7 @@ export default function Checkout() {
 
           <p className="modal-actions">
             <Button type="button" onClick={handleClose}>
-              Close
+              Back
             </Button>
 
             <Button type="submit" disabled={isCartEmpty}>
@@ -179,6 +172,6 @@ export default function Checkout() {
           </p>
         </form>
       )}
-    </Modal>
+    </section>
   );
 }

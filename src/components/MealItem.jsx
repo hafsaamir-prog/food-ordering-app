@@ -1,24 +1,27 @@
-import { useContext, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { currencyFormatter } from '../util/currencyFormatter.js';
 import Button from './UI/Button.jsx';
-import CartContext from '../store/CartContext.jsx';
+import { addItem } from '../store/redux/cartSlice';
+import { selectCartItems } from '../store/redux/selectors';
+import { useNavigate } from 'react-router-dom';
 
 export default function MealItem({ meal }) {
-  const cartCtx = useContext(CartContext);
+  const dispatch = useDispatch();
+  const cartItems = useSelector(selectCartItems);
 
-  const [isAdded, setIsAdded] = useState(false);
+  const navigate = useNavigate();
 
-  function handleAddMealToCart() {
-    cartCtx.addItem(meal);
-    setIsAdded(true);
-    setTimeout(() => {
-      setIsAdded(false);
-    }, 700);
+  function handleAddMealToCart(e) {
+    // prevent the parent click (which navigates to details)
+    if (e && e.stopPropagation) e.stopPropagation();
+    dispatch(addItem({ ...meal, quantity: 1 }));
   }
+
+  const isAdded = cartItems.some((it) => it.id === meal.id && it.quantity > 0);
 
   return (
     <li className="meal-item">
-      <article>
+      <article onClick={() => navigate(`/meals/${meal.id}`)} style={{ cursor: 'pointer' }}>
         <img src={`/${meal.image}`} alt={meal.name} />
 
         <div>
@@ -34,10 +37,7 @@ export default function MealItem({ meal }) {
         </div>
 
         <p className="meal-item-actions">
-          <Button
-            onClick={handleAddMealToCart}
-            className={isAdded ? 'added' : ''}
-          >
+          <Button onClick={handleAddMealToCart} className={isAdded ? 'added' : ''}>
             {isAdded ? '✓ Added!' : 'Add to Cart'}
           </Button>
         </p>

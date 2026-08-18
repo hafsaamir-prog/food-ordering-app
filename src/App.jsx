@@ -6,8 +6,7 @@ import Header from './components/Header.jsx';
 import Meals from './components/Meals.jsx';
 import About from './components/About.jsx';
 import Products from './components/Products.jsx';
-import {CartContextProvider} from './store/CartContext.jsx';
-import {UserProgressContextProvider} from './store/UserProgressContext.jsx';
+import MealDetail from './components/MealDetail.jsx';
 
 function RootLayout() {
   return (
@@ -16,8 +15,6 @@ function RootLayout() {
       <main>
         <Outlet />
       </main>
-      <Cart />
-      <Checkout />
     </>
   );
 }
@@ -29,6 +26,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Meals /> },
       { path: 'meals', element: <Meals /> },
+        { path: 'meals/:id', element: <MealDetail /> },
       { path: 'about', element: <About /> },
       { path: 'products', element: <Products /> },
       { path: 'cart', element: <Cart /> },
@@ -39,13 +37,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return (
-    <UserProgressContextProvider>
-      <CartContextProvider>
-        <RouterProvider router={router} />
-      </CartContextProvider>
-    </UserProgressContextProvider>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

@@ -167,6 +167,12 @@ h1 {
   color: white;
 }
 
+.button.added {
+  background-color: #2ecc50;
+  border-color: #2ecc50;
+  color: white;
+}
+
 @keyframes add-to-cart {
   0% {
     transform: scale(1);
@@ -269,7 +275,7 @@ h1 {
   border-top: 2px solid #d5cec4;
   font-size: 1.15rem;
   font-weight: bold;
-  color: #46443c;
+  color:#2ecc50 ;
 }
 
 .modal-actions {
@@ -279,12 +285,12 @@ h1 {
 }
 
 .modal-actions .text-button {
-  color: #1d1a16;
+  color: #2ecc50;
 }
 
 .modal-actions .text-button:hover,
 .modal-actions .text-button:active {
-  color: #312c1d;
+  color: #ffab04;
 }
 
 .control {
@@ -325,13 +331,8 @@ h1 {
   transition:
     background-color 0.2s ease,
     transform 0.2s ease;
-}
-
-.button:hover,
-.button:active {
-  background-color: #ffab04;
-  border-color: #ffab04;
-  color: #1f1a09;
+  animation: add-to-cart 0.5s ease;  
+  
 }
 
 .button:active {
