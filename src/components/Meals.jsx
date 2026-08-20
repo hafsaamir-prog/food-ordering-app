@@ -5,7 +5,7 @@ export default function Meals() {
  useEffect(()=>{
   async function fetchMeals() {
     try {
-      const response = await fetch('/availableMeals.json');
+      const response = await fetch('http://localhost:3000/meals');
       if (!response.ok) {
         throw new Error('Failed to fetch meals!');
       }

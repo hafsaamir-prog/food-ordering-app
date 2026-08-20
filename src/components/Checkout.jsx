@@ -12,6 +12,7 @@ export default function Checkout() {
   const cartItems = useSelector(selectCartItems);
   const cartTotal = useSelector(selectCartTotal);
   const [formError, setFormError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
   const isCartEmpty = !cartItems || cartItems.length === 0;
@@ -28,7 +29,7 @@ export default function Checkout() {
     navigate(-1);
   }
 
-  function checkoutAction(event) {
+  async function checkoutAction(event) {
     event.preventDefault();
     setFormError('');
 
@@ -41,7 +42,7 @@ export default function Checkout() {
     const customerData = Object.fromEntries(fd.entries());
 
     const name = (customerData.name || '').trim();
-    const postalCode = (customerData.postalCode || '').trim();
+    const postalCode = (customerData['postal-code'] || '').trim();
     const city = (customerData.city || '').trim();
 
     const nameInput = event.target.querySelector('#name');
@@ -87,10 +88,22 @@ export default function Checkout() {
       total: cartTotal,
     };
 
-    localStorage.setItem('order', JSON.stringify(order));
-
-    dispatch(clearCart());
-    navigate('/');
+    setIsSubmitting(true);
+    try{
+      const response=await fetch('http://localhost:3000/orders', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json' },
+        body: JSON.stringify({order}),
+      });
+      const result=await response.json();
+      if (!response.ok) throw new Error(result.message || 'Failed to submit order.');
+      dispatch(clearCart());
+      navigate('/');
+    } catch (error) {
+      setFormError(error.message || 'Failed to submit order.');
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -144,7 +157,7 @@ export default function Checkout() {
               label="Postal Code"
               type="text"
               id="postal-code"
-              name="postalCode"
+              name="postal-code"
               required
               pattern="\d+"
               title="Postal code must contain only digits"
@@ -166,8 +179,8 @@ export default function Checkout() {
               Back
             </Button>
 
-            <Button type="submit" disabled={isCartEmpty}>
-              Submit Order
+            <Button type="submit" disabled={isCartEmpty || isSubmitting}>
+              {isSubmitting ? 'Submitting...' : 'Submit Order'}
             </Button>
           </p>
         </form>

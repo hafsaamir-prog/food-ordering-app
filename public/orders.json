@@ -1,1 +1,108 @@
-[]
+[
+  {
+    "customer": {
+      "name": "Hafsa Amir",
+      "email": "hafsaamir0093@gmail.com",
+      "street": "House 80, Street 118, I-10/4, Islamabad, Pakistan.",
+      "postal-code": "44000",
+      "city": "Islamabad"
+    },
+    "items": [
+      {
+        "id": "m2",
+        "name": "Margherita Pizza",
+        "price": "12.99",
+        "description": "A classic pizza with fresh mozzarella, tomatoes, and basil on a thin and crispy crust.",
+        "image": "images/margherita-pizza.jpg",
+        "quantity": 1
+      },
+      {
+        "id": "m3",
+        "name": "Caesar Salad",
+        "price": "7.99",
+        "description": "Romaine lettuce tossed in Caesar dressing, topped with croutons and parmesan shavings.",
+        "image": "images/caesar-salad.jpg",
+        "quantity": 1
+      }
+    ],
+    "total": 20.98,
+    "id": "575.2600153152663"
+  },
+  {
+    "customer": {
+      "name": "Hafsa Amir",
+      "email": "hafsaamir0093@gmail.com",
+      "street": "House 80, Street 118, I-10/4, Islamabad, Pakistan.",
+      "postal-code": "44000",
+      "city": "Islamabad"
+    },
+    "items": [
+      {
+        "id": "m5",
+        "name": "Veggie Burger",
+        "price": "9.99",
+        "description": "A juicy veggie patty served on a whole grain bun with lettuce, tomato, and a tangy sauce.",
+        "image": "images/veggie-burger.jpg",
+        "quantity": 1
+      },
+      {
+        "id": "m20",
+        "name": "Falafel Wrap",
+        "price": "8.99",
+        "description": "Crispy falafels wrapped in a warm pita with lettuce, tomatoes, and a tahini sauce.",
+        "image": "images/falafel-wrap.jpg",
+        "quantity": 1
+      },
+      {
+        "id": "m4",
+        "name": "Spaghetti Carbonara",
+        "price": "10.99",
+        "description": "Al dente spaghetti with a creamy sauce made from egg yolk, pecorino cheese, pancetta, and pepper.",
+        "image": "images/spaghetti-carbonara.jpg",
+        "quantity": 1
+      },
+      {
+        "id": "m3",
+        "name": "Caesar Salad",
+        "price": "7.99",
+        "description": "Romaine lettuce tossed in Caesar dressing, topped with croutons and parmesan shavings.",
+        "image": "images/caesar-salad.jpg",
+        "quantity": 1
+      },
+      {
+        "id": "m8",
+        "name": "Sushi Roll Platter",
+        "price": "15.99",
+        "description": "An assortment of fresh sushi rolls including California, Spicy Tuna, and Eel Avocado.",
+        "image": "images/sushi-roll-platter.jpg",
+        "quantity": 1
+      },
+      {
+        "id": "m2",
+        "name": "Margherita Pizza",
+        "price": "12.99",
+        "description": "A classic pizza with fresh mozzarella, tomatoes, and basil on a thin and crispy crust.",
+        "image": "images/margherita-pizza.jpg",
+        "quantity": 1
+      },
+      {
+        "id": "m10",
+        "name": "Vegan Buddha Bowl",
+        "price": "11.99",
+        "description": "A hearty bowl filled with quinoa, roasted veggies, avocado, and a tahini dressing.",
+        "image": "images/vegan-buddha-bowl.jpg",
+        "quantity": 1
+      },
+      {
+        "id": "m6",
+        "name": "Grilled Chicken Sandwich",
+        "price": "10.99",
+        "description": "Tender grilled chicken breast with avocado, bacon, lettuce, and honey mustard on a toasted bun.",
+        "image": "images/grilled-chicken-sandwich.jpg",
+        "quantity": 1
+      }
+    ],
+    "total": 89.91999999999999,
+    "id": "372.2784702110158"
+  }
+]

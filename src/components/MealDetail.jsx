@@ -19,16 +19,13 @@ export default function MealDetail() {
     let mounted =true;
     async function fetchMeal() {
       try {
-        const res = await fetch('/availableMeals.json');
+        const res = await fetch('http://localhost:3000/meals');
         if (!res.ok) throw new Error('Failed to load meals');
-        const data =await res.json();
+        const data = await res.json();
         if (!mounted) return;
-        const found = data.find((m) => String(m.id) === String(id));
-        if (!found) {
-          setError('Meal not found');
-        } else {
-          setMeal(found);
-        }
+        const found = data.find((item) => String(item.id) === String(id));
+        if (!found) throw new Error('Meal not found');
+        setMeal(found);
       } catch (err) {
         setError(err.message || 'Failed to load meal');
       } finally {
